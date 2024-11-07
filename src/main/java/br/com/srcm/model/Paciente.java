@@ -5,6 +5,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "pacientes")
@@ -14,8 +17,12 @@ public class Paciente {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotNull(message = "O nome não pode ser nulo")
+    @Size(min = 2, max = 100, message = "O nome deve ter entre 2 e 100 caracteres")
 	private String nome;
 	
+	@NotNull(message = "O CPF não pode ser nulo")
+	@Pattern(regexp = "^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$", message = "CPF deve estar no formato 000.000.000-00")
 	private String cpf;
 	
 	public Paciente() {}
